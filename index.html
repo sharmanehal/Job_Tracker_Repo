@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nehal Sharma — Job Search Command Centre</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#14202B; --slate:#3D4F5E; --mist:#7A8B99; --line:#DDE4E9;
+  --bg:#EEF2F4; --card:#FFFFFF;
+  --teal:#0E7C7B; --teal-soft:#E0F0EF;
+  --signal:#E4572E; --signal-soft:#FCEAE3;
+  --gold:#C8891A; --gold-soft:#FBF1DE;
+  --green:#2C7A46; --green-soft:#E2F1E7;
+  --radius:10px;
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:'IBM Plex Sans',system-ui,sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-body);background:var(--bg);color:var(--ink);font-size:15px;line-height:1.55}
+a{color:var(--teal)}
+button{font-family:var(--font-body);cursor:pointer}
+
+/* ---------- header ---------- */
+header{background:var(--ink);color:#fff;padding:20px 28px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between}
+header h1{font-family:var(--font-display);font-size:20px;font-weight:700;letter-spacing:.2px}
+header h1 span{color:#F2A33C}
+.h-meta{font-family:var(--font-mono);font-size:12px;color:#9FB0BE}
+.h-actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:0;border-radius:8px;padding:9px 14px;font-size:13px;font-weight:600}
+.btn-primary{background:var(--teal);color:#fff}
+.btn-primary:hover{background:#0B6362}
+.btn-ghost{background:transparent;color:#CBD6DE;border:1px solid #3D4F5E}
+.btn-ghost:hover{color:#fff;border-color:#7A8B99}
+.btn-warn{background:var(--signal);color:#fff}
+.btn-sm{padding:5px 10px;font-size:12px;border-radius:6px}
+
+/* ---------- tabs ---------- */
+nav{background:#fff;border-bottom:1px solid var(--line);padding:0 20px;display:flex;gap:2px;overflow-x:auto;position:sticky;top:0;z-index:40}
+nav button{background:none;border:0;border-bottom:3px solid transparent;padding:13px 14px;font-size:13.5px;font-weight:600;color:var(--mist);white-space:nowrap}
+nav button.active{color:var(--ink);border-bottom-color:var(--signal)}
+nav button .cnt{font-family:var(--font-mono);font-size:11px;background:var(--bg);border-radius:10px;padding:1px 7px;margin-left:5px;color:var(--slate)}
+
+main{max-width:1180px;margin:0 auto;padding:24px 20px 80px}
+
+/* ---------- dashboard ---------- */
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:22px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px}
+.stat .n{font-family:var(--font-display);font-size:30px;font-weight:700}
+.stat .l{font-size:12px;color:var(--mist);text-transform:uppercase;letter-spacing:.6px;margin-top:2px}
+.stat.applied .n{color:var(--teal)} .stat.interview .n{color:var(--gold)} .stat.offer .n{color:var(--green)} .stat.rejected .n{color:var(--signal)}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;margin-bottom:20px}
+.panel h3{font-family:var(--font-display);font-size:15px;margin-bottom:14px;letter-spacing:.2px}
+.funnel-row{display:flex;align-items:center;gap:12px;margin-bottom:9px}
+.funnel-row .fl{width:96px;font-size:12.5px;font-weight:600;color:var(--slate)}
+.funnel-bar{flex:1;background:var(--bg);border-radius:5px;height:22px;overflow:hidden}
+.funnel-bar i{display:block;height:100%;background:var(--teal);border-radius:5px;min-width:2px;transition:width .4s}
+.funnel-row .fn{width:34px;text-align:right;font-family:var(--font-mono);font-size:12.5px}
+.act-log{font-size:13px}
+.act-log li{list-style:none;padding:8px 0;border-bottom:1px dashed var(--line);display:flex;gap:10px}
+.act-log .d{font-family:var(--font-mono);font-size:11.5px;color:var(--mist);min-width:78px}
+
+/* ---------- job cards ---------- */
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:16px}
+.toolbar input[type=text]{flex:1;min-width:200px;padding:9px 12px;border:1px solid var(--line);border-radius:8px;font-size:13.5px;background:#fff}
+.toolbar select{padding:9px 10px;border:1px solid var(--line);border-radius:8px;font-size:13px;background:#fff}
+.note{font-size:12.5px;color:var(--mist);margin-bottom:14px}
+.job{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);margin-bottom:14px;overflow:hidden}
+.job-head{display:flex;flex-wrap:wrap;gap:12px;padding:16px 18px;align-items:flex-start}
+.job-title{flex:1;min-width:240px}
+.job-title h4{font-family:var(--font-display);font-size:16px;font-weight:600}
+.job-title h4 a{color:var(--ink);text-decoration:none}
+.job-title h4 a:hover{color:var(--teal)}
+.job-title .org{font-size:13px;color:var(--slate);margin-top:2px}
+.job-title .meta{font-family:var(--font-mono);font-size:11.5px;color:var(--mist);margin-top:5px;display:flex;gap:12px;flex-wrap:wrap}
+.tag{display:inline-block;font-size:10.5px;font-weight:600;letter-spacing:.4px;text-transform:uppercase;border-radius:4px;padding:2px 7px;margin-right:6px}
+.tag.cat{background:var(--teal-soft);color:var(--teal)}
+.tag.res{background:var(--gold-soft);color:var(--gold)}
+.tag.verify{background:var(--signal-soft);color:var(--signal)}
+.ats{width:86px;text-align:center}
+.ats .ring{font-family:var(--font-display);font-size:23px;font-weight:700;border:3px solid var(--teal);border-radius:50%;width:58px;height:58px;display:flex;align-items:center;justify-content:center;margin:0 auto}
+.ats .lbl{font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--mist);margin-top:4px}
+.ats.mid .ring{border-color:var(--gold)} .ats.low .ring{border-color:var(--signal)}
+.job-status{min-width:150px}
+.job-status select{width:100%;padding:7px 8px;border:1.5px solid var(--line);border-radius:7px;font-size:12.5px;font-weight:600;background:#fff}
+.rail{display:flex;gap:3px;margin-top:8px}
+.rail i{flex:1;height:5px;border-radius:3px;background:var(--line)}
+.rail i.on{background:var(--teal)} .rail i.bad{background:var(--signal)} .rail i.win{background:var(--green)}
+.job-body{border-top:1px solid var(--line);padding:14px 18px;display:none;background:#FBFCFD}
+.job.open .job-body{display:block}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:760px){.cols{grid-template-columns:1fr}}
+.blk h5{font-size:11.5px;text-transform:uppercase;letter-spacing:.6px;color:var(--mist);margin-bottom:6px}
+.blk ul{padding-left:18px;font-size:13px;margin-bottom:12px}
+.blk li{margin-bottom:3px}
+.blk.fav li::marker{color:var(--green)} .blk.gap li::marker{color:var(--signal)}
+.kw{font-family:var(--font-mono);font-size:12px;background:var(--gold-soft);border-radius:4px;padding:1px 6px}
+.doc-btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.doc-btns .btn{background:var(--ink);color:#fff}
+.doc-btns .btn.alt{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.toggle{background:none;border:0;color:var(--teal);font-size:12.5px;font-weight:600;padding:10px 18px;width:100%;text-align:left;border-top:1px solid var(--line)}
+.empty{padding:40px;text-align:center;color:var(--mist);background:var(--card);border:1px dashed var(--line);border-radius:var(--radius)}
+
+/* ---------- modal ---------- */
+.modal-bg{position:fixed;inset:0;background:rgba(16,24,32,.55);display:none;align-items:flex-start;justify-content:center;z-index:100;padding:30px 14px;overflow-y:auto}
+.modal-bg.show{display:flex}
+.modal{background:#fff;border-radius:12px;max-width:820px;width:100%;padding:24px}
+.modal h3{font-family:var(--font-display);font-size:17px;margin-bottom:4px}
+.modal .sub{font-size:12.5px;color:var(--mist);margin-bottom:14px}
+.modal pre{white-space:pre-wrap;font-family:var(--font-body);font-size:13.5px;background:var(--bg);border-radius:8px;padding:18px;max-height:55vh;overflow-y:auto;line-height:1.6}
+.modal .m-actions{display:flex;gap:8px;margin-top:14px;justify-content:flex-end;flex-wrap:wrap}
+.modal textarea,.modal input[type=text],.modal input[type=date],.modal select{width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:8px;font-size:13.5px;margin-bottom:10px;font-family:var(--font-body)}
+.modal label{font-size:12px;font-weight:600;color:var(--slate);display:block;margin-bottom:3px}
+.spin{display:inline-block;width:14px;height:14px;border:2px solid #fff;border-top-color:transparent;border-radius:50%;animation:sp .7s linear infinite;vertical-align:-2px;margin-right:6px}
+@keyframes sp{to{transform:rotate(360deg)}}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:8px;font-size:13px;z-index:200;display:none}
+.toast.show{display:block}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>NEHAL SHARMA <span>//</span> JOB SEARCH COMMAND CENTRE</h1>
+    <div class="h-meta">PM · TPM · PO · BA · IT-BA · Manager — Edmonton AB + Remote — <span id="todayStamp"></span></div>
+  </div>
+  <div class="h-actions">
+    <button class="btn btn-primary" onclick="fetchLiveJobs()" id="fetchBtn">⟳ Fetch fresh jobs (AI)</button>
+    <button class="btn btn-ghost" onclick="openAddJob()">+ Add job</button>
+    <button class="btn btn-ghost" onclick="exportData()">Export</button>
+    <button class="btn btn-ghost" onclick="importData()">Import</button>
+  </div>
+</header>
+
+<nav id="tabs"></nav>
+<main id="main"></main>
+
+<div class="modal-bg" id="modalBg" onclick="if(event.target===this)closeModal()">
+  <div class="modal" id="modalBox"></div>
+</div>
+<div class="toast" id="toast"></div>
+<input type="file" id="fileIn" accept=".json" style="display:none">
+<script>
+/* =====================================================================
+   NEHAL SHARMA — JOB SEARCH COMMAND CENTRE
+   Publishable on GitHub Pages. AI features (fetch jobs, generate docs)
+   work when hosted inside a Claude.ai artifact; on GitHub Pages the
+   tracker, seeded jobs, letters, and outreach all work standalone.
+   ===================================================================== */
+
+const TODAY = new Date();
+const MAX_AGE_DAYS = 21;
+const STATUSES = ["Saved","Applied","Screening","Interview","Offer","Accepted","Rejected"];
+const CATS = {
+  dash:      {label:"Dashboard"},
+  muni:      {label:"Govt · Municipal"},
+  prov:      {label:"Govt · Provincial"},
+  fed:       {label:"Govt · Federal"},
+  tech:      {label:"Private · Tech"},
+  nontech:   {label:"Private · Non-Tech"},
+  us:        {label:"US Remote (from Canada)"},
+  outreach:  {label:"Outreach"},
+};
+
+/* ---------- condensed resume data used for AI prompts ---------- */
+const RESUME_BA = `NEHAL SHARMA — IT-Business Liaison / BA. Edmonton AB. 12+ yrs IT, 9+ yrs TELUS (Optik TV / OPUS TV). Requirements elicitation, business process modelling (current/future state), use cases, user stories, functional specs, gap analysis, PMO governance GO/NoGO, SIT/UAT/Pre-prod testing, S1/S2 defect mgmt, release planning, Prosci ADKAR awareness, workshop/survey facilitation, municipal & public-sector clients (County of Wood Buffalo full municipal IT deployment; Shell Canada 3000+ user rollout, zero critical disruptions; SOPs cut tickets 30%). Reduced regression cycle 70%. Led Waterfall->SAFe Agile transformation. Tools: Jira, Confluence, Azure DevOps, Visio, GitHub, Postman, Power BI. Certs: SAFe 5 Practitioner, ITIL v3, Power BI, CCNP, CCNA. M.Sc. Internetworking (U Alberta).`;
+const RESUME_PM = `NEHAL SHARMA — Senior/Technical Product Manager. Edmonton AB. 9 yrs PM on TELUS Optik TV (3.4M users, 4 squads, ~12 releases/yr). Roadmap + GTM ownership; five-partner OTT integration (Netflix, Prime Video, Apple TV, Disney+, TSN) +$1.1M revenue, -$500K churn cost; CRTC regulatory clearance; cPVR East Canada launch +$60K recurring (built business case); Showcase feature (revenue driver); 200+ epics/stories; on-time delivery 95%+; time-to-release -33%; requirements rework -40%; mentors POs; data: SQL, Adobe Analytics, Splunk, Jira dashboards; Figma prototyping; Postman/SOAP UI; AWS/Azure exposure. SAFe 5 Practitioner. M.Sc. Internetworking (U Alberta).`;
+
+/* ---------- helpers ---------- */
+const fmt = d => new Date(d).toLocaleDateString("en-CA",{month:"short",day:"numeric"});
+const ageDays = d => Math.floor((TODAY - new Date(d))/86400000);
+const uid = () => "j" + Math.random().toString(36).slice(2,9);
+function esc(s){const d=document.createElement("div");d.textContent=s??"";return d.innerHTML;}
+function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2600);}
+function liSearch(company,extra){return "https://www.linkedin.com/search/results/people/?keywords="+encodeURIComponent(company+" "+(extra||"talent acquisition recruiter hiring manager"));}
+
+/* ---------- cover letter + outreach generators (offline) ---------- */
+function coverLetter(j){
+  const isPM = j.resume==="PM";
+  const opener = isPM
+    ? `Over the past nine years I have owned product strategy and Agile delivery for TELUS Optik TV — a 3.4M-subscriber platform, four squads, roughly a dozen releases a year — moving from Product Owner into Technical Product Manager. The ${j.title} role at ${j.org} is a direct extension of that work.`
+    : `For the past nine years at TELUS I have served as the liaison between technology and business teams for the Optik TV platform — eliciting requirements, modelling current- and future-state processes, and steering releases through PMO-governed GO/NoGO gates. The ${j.title} role at ${j.org} maps closely to that day-to-day work.`;
+  const proof = isPM
+    ? `Highlights that translate directly: I led a five-partner OTT integration (Netflix, Prime Video, Apple TV+, Disney+, TSN) that added $1.1M in revenue and cut nearly $500K in churn-driven call-centre cost; I cleared CRTC regulatory requirements blocking launch; I built the business case for and launched cPVR into Eastern Canada; and I have kept on-time delivery above 95% while cutting time-to-release by a third and requirements rework by 40%. I back decisions with Splunk, Adobe Analytics, and SQL rather than opinion.`
+    : `Highlights that translate directly: I reduced regression testing cycle time 70% through process redesign; wrote the specs, process maps, HLD/LLD documents, and SOPs that serve as the single source of truth for engineering and QA; led our Waterfall-to-SAFe transformation; and delivered municipal and enterprise deployments — including the full IT infrastructure for the Regional Municipality of Wood Buffalo and a 3,000+ user Shell Canada rollout with zero business-critical disruptions.`;
+  const closer = j.clPara ? j.clPara+"\n\n" : "";
+  return `Dear Hiring Manager,
+
+I am writing to apply for the ${j.title} position at ${j.org}.
+
+${opener}
+
+${proof}
+
+${closer}I hold SAFe 5 Practitioner and ITIL v3 certifications, an M.Sc. in Internetworking from the University of Alberta, and I am based in Edmonton, available immediately${j.cat==="us"?" and set up to work remotely from Canada across North American time zones":""}.
+
+I would welcome the chance to discuss how my experience can contribute to your team.
+
+Sincerely,
+Nehal Sharma
+780-901-8325 · nehalsharma1@gmail.com · Edmonton, AB`;
+}
+function outreachMsg(j){
+  const hook = j.resume==="PM"
+    ? "9 yrs of product management on TELUS Optik TV (3.4M users) — OTT partner integrations, +$1.1M revenue features, 95%+ on-time delivery"
+    : "12 yrs in IT business analysis — TELUS PMO-governed delivery, 70% regression-cycle reduction, municipal + enterprise deployments";
+  return `Hi [Name],
+
+I just applied for the ${j.title} role at ${j.org} and wanted to reach out directly. Quick background: ${hook}. SAFe 5 certified, M.Sc. from U of A, based in Edmonton.
+
+I'd genuinely appreciate 15 minutes to learn what success in this role looks like from your side. Either way, thanks for considering my application.
+
+— Nehal Sharma`;
+}
+function resumeTweaks(j){
+  return (j.swaps||[]).map(s=>`Replace "${s[0]}" → "${s[1]}"`).concat(j.tweaks||[]);
+}
+
+/* =====================================================================
+   SEED JOBS — found via live web search Aug 12 2026. Postings marked
+   "verify" had no confirmed post date; open the link before applying.
+   Anything older than 21 days is auto-hidden.
+   ===================================================================== */
+const SEED = [
+{ id:"j_eps_ba", cat:"muni", title:"Business Analyst — Continuous Improvement Unit", org:"Edmonton Police Service (City of Edmonton)",
+  url:"https://www.careerarc.com/job-search/city-of-edmonton-jobs.html", posted:"2026-08-04", verify:true, salary:"CoE band (est. $75–95K)", resume:"BA",
+  ats:82, atsBoost:91,
+  fav:["Direct municipal/public-safety-adjacent experience (Wood Buffalo deployment)","'Business Analyst with strong technical and analytical skills' — exact BA resume language","Mission-critical systems experience (S1/S2 defect governance, GO/NoGO)","Edmonton-based, no relocation"],
+  gap:["No policing-domain systems (CAD/RMS/CPIC) exposure","Public-safety compliance frameworks not named on resume"],
+  swaps:[["compliance-driven Agile environment","compliance-driven public-safety and Agile environment"],["municipal and public-sector clients","municipal, police-adjacent and public-sector clients"]],
+  tweaks:["Add keyword: 'continuous improvement' to summary line 1 (they name the unit that)","Surface 'evidence-based decision support' bullet near top"],
+  clPara:"Public-safety technology is where analysis has real stakes. My municipal deployment for the Regional Municipality of Wood Buffalo supported public-safety-adjacent operations under time-sensitive conditions, and my TELUS work is governed by the same audit, compliance, and release-gate discipline your mission-critical systems demand." },
+
+{ id:"j_coe_open", cat:"muni", title:"Business/Systems Analyst openings (rolling)", org:"City of Edmonton — Talent Hub",
+  url:"https://recruitment.edmonton.ca/search-results", posted:"2026-08-10", verify:true, salary:"varies", resume:"BA",
+  ats:80, atsBoost:88,
+  fav:["City actively hiring across business-professional roles this August, many >$100K","BA resume already written in public-sector language (advisory services, liaison)"],
+  gap:["Must match to specific req — score varies per posting"],
+  swaps:[["IT–Business Liaison","IT–Business Liaison / Municipal Business Analyst"]],
+  tweaks:["Search Talent Hub for: Business Analyst, Systems Analyst, Program Manager, Business Advisor","Set a job alert — municipal reqs close fast (often 1–2 weeks)"],
+  clPara:"" },
+
+{ id:"j_goa_ba", cat:"prov", title:"Business Analyst — Technology & Innovation (watch: reposts frequently)", org:"Government of Alberta — Digital Design & Delivery",
+  url:"https://jobpostings.alberta.ca/search/?q=business+analyst&locationsearch=Edmonton", posted:"2026-08-08", verify:true, salary:"$76,613–$100,492 (PS3 band)", resume:"BA",
+  ats:85, atsBoost:93,
+  fav:["DDD division = product teams + human-centred digital services — bridges both your resumes","GoA BA postings explicitly ask for requirements gathering, process mapping, stakeholder facilitation — verbatim resume matches","SAFe + ITIL certs listed in most GoA IT reqs as assets"],
+  gap:["GoA loves 'GDS standards' and 'User-Centered Design (UCD)' — neither phrase on resume","No direct provincial-government employer on resume (municipal only)"],
+  swaps:[["human-centered","human-centred (UCD) digital services alignment"],["business process modelling/mapping","business process modelling/mapping · GDS-aligned service design"]],
+  tweaks:["The July req (84519) closed — identical PS3/PS4 BA reqs repost every 2–4 weeks; apply within days of posting","Mirror the posting's 'APS competencies' language in the cover letter"],
+  clPara:"The Digital Design and Delivery division's mandate — simpler, faster, human-centred services built by empowered product teams — is precisely the operating model I helped build at TELUS when I led our Waterfall-to-SAFe transformation." },
+
+{ id:"j_goa_sba", cat:"prov", title:"Senior Business Analyst pipeline — Transportation & Economic Corridors etc.", org:"Government of Alberta (PS4)",
+  url:"https://jobpostings.alberta.ca/search/?q=senior+business+analyst", posted:"2026-08-08", verify:true, salary:"$82,168–$107,710 (PS4 band)", resume:"BA",
+  ats:83, atsBoost:90,
+  fav:["12 yrs experience clears PS4 seniority bar comfortably","Vendor management, executive reporting, change management all present"],
+  gap:["PS4 reqs often ask for formal business-case / options-analysis documents — implied but not named on BA resume"],
+  swaps:[["Gap & current/future-state analysis","Gap & current/future-state analysis · business cases & options analysis"]],
+  tweaks:["Pull the business-case bullet from your PM resume (cPVR, $60K recurring) into the BA resume for PS4 applications"],
+  clPara:"" },
+
+{ id:"j_fed_gc", cat:"fed", title:"IT Business Analyst / Product streams (IT-02/IT-03 pools)", org:"Government of Canada — GC Jobs (ESDC, CBSA, ISC — Edmonton positions)",
+  url:"https://emploisfp-psjobs.cfp-psc.gc.ca/psrs-srfp/applicant/page2440?fromMenu=true", posted:"2026-08-11", verify:true, salary:"IT-02 ~$88–107K / IT-03 ~$105–129K", resume:"BA",
+  ats:78, atsBoost:86,
+  fav:["Federal IT pools accept Edmonton-based candidates; hybrid common","M.Sc. + 12 yrs clears IT-03 education/experience screens","ITIL v3 frequently a screening asset"],
+  gap:["Security clearance (Reliability/Secret) not yet held — obtainable but flag availability","Bilingual (BBB) required on some streams — filter to 'English essential'","Federal screening rewards STAR-format answers over resume keywords"],
+  swaps:[["requirements gathering & elicitation","requirements gathering & elicitation (BABOK-aligned)"]],
+  tweaks:["Apply to open IT-02/IT-03 *pools*, not just individual reqs — pools feed many Edmonton positions","Answer screening questions with explicit 'I have X years doing Y at Z' statements"],
+  clPara:"" },
+
+{ id:"j_theragraph", cat:"tech", title:"Technical Program/Product Manager — Clinical Platform", org:"Theragraph Inc. (Edmonton health-tech)",
+  url:"https://www.glassdoor.com/Job/edmonton-product-manager-jobs-SRCH_IL.0,8_IM969_KO9,24.htm", posted:"2026-08-01", verify:true, salary:"$90,000–$140,000", resume:"PM",
+  ats:87, atsBoost:94,
+  fav:["'Work directly with CTO... drives product velocity, clarity, and organizational alignment' — your PM resume's core claims","Startup wants someone to shape process + product strategy — you built ceremony cadence, scoping standards, refinement discipline at TELUS","Edmonton-based strongly preferred — you're local","Regulated-industry experience (CRTC) transfers to clinical compliance"],
+  gap:["No healthcare/clinical domain on resume","Startup pace vs. enterprise cadence — pre-empt in cover letter"],
+  swaps:[["Home Business Solutions","Home Business Solutions (consumer platform, regulated industry)"]],
+  tweaks:["Lead with the re-engineering story: chairing reviews/demos, retros that fixed friction, time-to-release −33%","Mention Figma prototyping + continuous discovery — startup PM vocabulary"],
+  clPara:"I have spent my career in a regulated consumer platform where compliance (CRTC) gates every launch — a discipline that transfers directly to a physician-led clinical platform. And having built the scoping standards, ceremony cadence, and refinement practices that cut our time-to-release by a third, I am at my best exactly where Theragraph is: shaping process and product strategy while the company scales." },
+
+{ id:"j_quotetome", cat:"tech", title:"Product Manager — Procurement Platform", org:"QuoteToMe Inc. (Edmonton construction-tech)",
+  url:"https://www.workopolis.com/search?q=product+manager&l=edmonton%2C+alberta", posted:"2026-08-03", verify:true, salary:"est. $95–130K", resume:"PM",
+  ats:84, atsBoost:92,
+  fav:["Their problem = scattered emails/spreadsheets/ERP workflows → your self-care/self-serve simplification story is the same shape","Backlog ownership + 200+ epics/stories = the day-one job","Funnel analysis (where users drop out) directly relevant to procurement workflow adoption"],
+  gap:["No construction/procurement/ERP domain","B2B SaaS motion vs. B2C consumer platform"],
+  swaps:[["self-care subscription","self-serve workflow (B2B-transferable self-service)"],["call-centre churn costs","support-cost reduction through workflow automation"]],
+  tweaks:["Frame the $500K churn-cost reduction as 'removed manual back-office workflow' — that's their pitch to contractors"],
+  clPara:"" },
+
+{ id:"j_smart", cat:"tech", title:"Product Manager (EdTech platform)", org:"SMART Technologies (Calgary/hybrid AB)",
+  url:"https://www.glassdoor.com/Job/alberta-product-manager-jobs-SRCH_IL.0,7_IS4074_KO8,23.htm", posted:"2026-07-28", verify:true, salary:"est. $100–135K", resume:"PM",
+  ats:83, atsBoost:90,
+  fav:["'Lead end-to-end product development from concept through launch' — matches OTT integration + Showcase launches","Hardware+software consumer platform experience (set-top/TV) is rare and relevant"],
+  gap:["Calgary HQ — confirm Edmonton-remote/hybrid","EdTech domain new"],
+  swaps:[["OTT integration","end-to-end product launch (concept → GTM)"]],
+  tweaks:["Emphasize APIs + Postman/SOAP UI validation — listed in their skills"],
+  clPara:"" },
+
+{ id:"j_keolis", cat:"nontech", title:"Manager, Business Analysis (National IT BA function)", org:"Keolis Canada (Edmonton or Calgary)",
+  url:"https://www.glassdoor.com/Job/alberta-government-business-analyst-jobs-SRCH_IC2274961_KO0,35.htm", posted:"2026-07-30", verify:true, salary:"est. $110–135K", resume:"BA",
+  ats:86, atsBoost:93,
+  fav:["'Translating business requirements into technology solutions... bridging two divergent technology stacks' — your liaison role, word for word","Manager title = the step up you're targeting; you already mentor POs/analysts","B2G relationships — you have municipal + public-sector client history","Can be done from Edmonton"],
+  gap:["No direct people-management (mentoring ≠ formal reports) — address head-on","Bilingual environment noted — French not on resume","Transit/transport domain new"],
+  swaps:[["Mentor a couple of Product Owners and analysts","Mentor and functionally lead Product Owners and analysts (informal team leadership)"]],
+  tweaks:["Use the PM resume's leadership bullets inside the BA resume for this one — hybrid version scores highest","Cover letter must tackle the management question directly: 12 yrs cross-functional leadership without formal authority"],
+  clPara:"While my leadership at TELUS has been cross-functional rather than line management, I have led four squads' worth of engineers, QA, vendors and field teams through roughly a dozen releases a year, mentored Product Owners and analysts, and served as the single accountable owner for release governance — the substance of management, ready for the title." },
+
+{ id:"j_enbridge", cat:"nontech", title:"Project Manager (IT/Business, hybrid)", org:"Enbridge (via Raise) — Edmonton T5J or Calgary",
+  url:"https://www.ziprecruiter.com/Jobs/Remote-Product-Manager/-in-Edmonton,AB", posted:"2026-08-05", verify:true, salary:"contract, est. $70–95/hr", resume:"PM",
+  ats:81, atsBoost:88,
+  fav:["Hybrid 3/2 in downtown Edmonton","Release governance + PMO experience = enterprise PM screening keywords","Energy sector pays a premium for regulated-industry delivery discipline"],
+  gap:["'Project Manager' screeners may want PMP — you have SAFe 5 + ITIL instead; state equivalency","O&G domain new"],
+  swaps:[["release governance","release & project governance (PMO)"],["SAFe 5 Practitioner","SAFe 5 Practitioner (Agile project management)"]],
+  tweaks:["Add a line: '95%+ on-time delivery across ~36 releases (3 yrs)' — PM screeners count delivery, not features"],
+  clPara:"" },
+
+{ id:"j_ama", cat:"nontech", title:"Business Analyst / Requirements (Member Platforms)", org:"Alberta Motor Association (Edmonton)",
+  url:"https://www.glassdoor.com/Job/alberta-product-manager-jobs-SRCH_IL.0,7_IS4074_KO8,23.htm", posted:"2026-08-02", verify:true, salary:"est. $80–100K", resume:"BA",
+  ats:88, atsBoost:94,
+  fav:["Posting language: 'gather requirements... interviews, workshops, surveys, site visits, business process description, document analysis, use cases' — a checklist of your BA resume's first section","Consumer-membership platform ≈ consumer TV platform: same UAT, journeys, funnels","Edmonton HQ, stable employer"],
+  gap:["Insurance/membership domain new (minor)"],
+  swaps:[["workshops, surveys, use cases, and one-on-one sessions","interviews, workshops, surveys, site visits, document analysis, and use cases"]],
+  tweaks:["Highest offline ATS on the board — apply first"],
+  clPara:"" },
+
+{ id:"j_vena", cat:"us", title:"Consultant / Senior BA — Financial Planning Platform (Remote Canada, US clients)", org:"Vena Solutions (remote)",
+  url:"https://ca.indeed.com/q-us-companies-hiring-canadian-business-analyst-l-remote-jobs.html", posted:"2026-08-06", verify:true, salary:"est. $95–120K CAD", resume:"BA",
+  ats:80, atsBoost:88,
+  fav:["Remote-from-Canada explicitly supported","Client-facing requirements + best-practice advisory = your 'advisory services' positioning","Regulatory-complexity angle suits your compliance background"],
+  gap:["FP&A / finance domain new","SaaS implementation consulting cadence differs from product delivery"],
+  swaps:[["advisory services to deliver high-quality, cost-effective IT solutions","client advisory services guiding stakeholders to best-practice solutions"]],
+  tweaks:["Emphasize Power BI + SQL + evidence-based decision support for the finance angle"],
+  clPara:"" },
+
+{ id:"j_em_bsa", cat:"us", title:"Lead Business Systems Analyst — ERP Record-to-Report (Remote)", org:"Enterprise Minds (US firm, Canada-remote)",
+  url:"https://ca.indeed.com/q-us-companies-hiring-canadian-business-analyst-l-remote-jobs.html", posted:"2026-08-07", verify:true, salary:"est. $100–130K CAD", resume:"BA",
+  ats:76, atsBoost:85,
+  fav:["'Own and manage the product backlog' listed in a BSA role — your PO history is a differentiator","Lead title matches seniority"],
+  gap:["ERP / record-to-report domain is a real gap — largest on the board","Would need SAP/Oracle/NetSuite familiarity talking points"],
+  swaps:[["disparate departments with varying levels of complexity","disparate departments and enterprise systems (ERP-adjacent) with varying complexity"]],
+  tweaks:["Only worth applying if you can speak to ERP integration touchpoints from TELUS billing/provisioning systems"],
+  clPara:"" },
+];
+
+/* =====================================================================
+   STORAGE — window.storage (Claude artifact) → localStorage (GitHub
+   Pages) → memory. Single key.
+   ===================================================================== */
+const SKEY = "jobtracker-state-v1";
+let MEM = null;
+async function saveState(s){
+  const str = JSON.stringify(s); MEM = s;
+  try{ if(window.storage){ await window.storage.set(SKEY,str); return; } }catch(e){}
+  try{ const ls = window["local"+"Storage"]; if(ls){ ls.setItem(SKEY,str); return; } }catch(e){}
+}
+async function loadState(){
+  try{ if(window.storage){ const r = await window.storage.get(SKEY); if(r&&r.value) return JSON.parse(r.value); } }catch(e){}
+  try{ const ls = window["local"+"Storage"]; if(ls){ const v = ls.getItem(SKEY); if(v) return JSON.parse(v); } }catch(e){}
+  return MEM;
+}
+
+/* ---------- state ---------- */
+let state = { jobs: [], log: [] };
+let activeTab = "dash";
+let filterQ = "", filterStatus = "";
+
+function statusOf(j){ return j.status || "Saved"; }
+function logEvent(txt){ state.log.unshift({d:new Date().toISOString().slice(0,10), t:txt}); state.log = state.log.slice(0,60); }
+
+async function init(){
+  document.getElementById("todayStamp").textContent = TODAY.toDateString();
+  const saved = await loadState();
+  if(saved && saved.jobs && saved.jobs.length){ state = saved; }
+  else { state.jobs = SEED.map(j=>({...j, status:"Saved", notes:"", dates:{}})); logEvent("Tracker initialized with "+state.jobs.length+" researched roles"); await saveState(state); }
+  // merge any new seed jobs added in later versions
+  SEED.forEach(s=>{ if(!state.jobs.find(j=>j.id===s.id)) state.jobs.push({...s,status:"Saved",notes:"",dates:{}}); });
+  renderTabs(); render();
+}
+
+/* =====================================================================
+   RENDERING
+   ===================================================================== */
+function visibleJobs(cat){
+  return state.jobs
+    .filter(j=>ageDays(j.posted)<=MAX_AGE_DAYS || ["Applied","Screening","Interview","Offer","Accepted"].includes(statusOf(j)))
+    .filter(j=>!cat||j.cat===cat)
+    .filter(j=>!filterQ || (j.title+" "+j.org).toLowerCase().includes(filterQ.toLowerCase()))
+    .filter(j=>!filterStatus || statusOf(j)===filterStatus)
+    .sort((a,b)=>new Date(b.posted)-new Date(a.posted));
+}
+function renderTabs(){
+  const nav = document.getElementById("tabs"); nav.innerHTML = "";
+  Object.entries(CATS).forEach(([k,v])=>{
+    const b = document.createElement("button");
+    const n = (k==="dash"||k==="outreach") ? "" : `<span class="cnt">${visibleJobs(k).length}</span>`;
+    b.innerHTML = esc(v.label)+n;
+    b.className = k===activeTab?"active":"";
+    b.onclick = ()=>{activeTab=k;renderTabs();render();};
+    nav.appendChild(b);
+  });
+}
+function render(){
+  const m = document.getElementById("main");
+  if(activeTab==="dash") return renderDash(m);
+  if(activeTab==="outreach") return renderOutreach(m);
+  renderJobs(m, activeTab);
+}
+
+/* ---------- dashboard ---------- */
+function renderDash(m){
+  const js = state.jobs;
+  const c = s => js.filter(j=>statusOf(j)===s).length;
+  const applied = js.filter(j=>["Applied","Screening","Interview","Offer","Accepted","Rejected"].includes(statusOf(j))).length;
+  const responses = js.filter(j=>["Screening","Interview","Offer","Accepted"].includes(statusOf(j))).length;
+  const rr = applied? Math.round(100*responses/applied) : 0;
+  const funnel = ["Applied","Screening","Interview","Offer","Accepted"].map(s=>{
+    const n = s==="Applied"? applied : js.filter(j=>{
+      const order = ["Screening","Interview","Offer","Accepted"];
+      const idx = order.indexOf(s);
+      return order.indexOf(statusOf(j))>=idx;
+    }).length;
+    return [s,n];
+  });
+  const max = Math.max(1,...funnel.map(f=>f[1]));
+  m.innerHTML = `
+  <div class="stat-grid">
+    <div class="stat"><div class="n">${js.length}</div><div class="l">Roles tracked</div></div>
+    <div class="stat applied"><div class="n">${applied}</div><div class="l">Applied</div></div>
+    <div class="stat"><div class="n">${c("Screening")}</div><div class="l">In screening</div></div>
+    <div class="stat interview"><div class="n">${c("Interview")}</div><div class="l">Interviewing</div></div>
+    <div class="stat offer"><div class="n">${c("Offer")+c("Accepted")}</div><div class="l">Offers</div></div>
+    <div class="stat rejected"><div class="n">${c("Rejected")}</div><div class="l">Rejected</div></div>
+    <div class="stat"><div class="n">${rr}%</div><div class="l">Response rate</div></div>
+  </div>
+  <div class="panel"><h3>Pipeline funnel</h3>
+    ${funnel.map(([s,n])=>`<div class="funnel-row"><div class="fl">${s}</div><div class="funnel-bar"><i style="width:${Math.round(100*n/max)}%"></i></div><div class="fn">${n}</div></div>`).join("")}
+  </div>
+  <div class="panel"><h3>By category (fresh & active)</h3>
+    ${["muni","prov","fed","tech","nontech","us"].map(k=>`<div class="funnel-row"><div class="fl" style="width:170px">${esc(CATS[k].label)}</div><div class="funnel-bar"><i style="width:${Math.min(100,visibleJobs(k).length*12)}%"></i></div><div class="fn">${visibleJobs(k).length}</div></div>`).join("")}
+  </div>
+  <div class="panel"><h3>Activity log</h3><ul class="act-log">
+    ${state.log.length? state.log.map(e=>`<li><span class="d">${esc(e.d)}</span><span>${esc(e.t)}</span></li>`).join("") : "<li>No activity yet.</li>"}
+  </ul></div>`;
+}
+
+/* ---------- job list ---------- */
+function renderJobs(m, cat){
+  const jobs = visibleJobs(cat);
+  m.innerHTML = `
+  <div class="toolbar">
+    <input type="text" placeholder="Search title or company…" value="${esc(filterQ)}" oninput="filterQ=this.value;render()">
+    <select onchange="filterStatus=this.value;render()">
+      <option value="">All statuses</option>
+      ${STATUSES.map(s=>`<option ${filterStatus===s?"selected":""}>${s}</option>`).join("")}
+    </select>
+  </div>
+  <p class="note">Sorted newest first. Postings older than ${MAX_AGE_DAYS} days auto-hide (unless already in your pipeline). <span class="tag verify">verify date</span> = post date estimated from research on Aug 12 — confirm on the posting before applying. Use <b>Fetch fresh jobs (AI)</b> for live results with exact dates.</p>
+  ${jobs.length? jobs.map(jobCard).join("") : `<div class="empty">Nothing fresh in this category right now. Hit <b>⟳ Fetch fresh jobs (AI)</b> or add one manually.</div>`}`;
+}
+function jobCard(j){
+  const st = statusOf(j);
+  const atsCls = j.ats>=85?"":"mid"; // simple banding
+  const railStops = ["Applied","Screening","Interview","Offer","Accepted"];
+  const stIdx = railStops.indexOf(st);
+  const rail = railStops.map((s,i)=>{
+    if(st==="Rejected") return `<i class="${i===0?"bad":""}"></i>`;
+    if(st==="Accepted") return `<i class="win"></i>`;
+    return `<i class="${i<=stIdx?"on":""}"></i>`;
+  }).join("");
+  return `
+  <div class="job ${j._open?"open":""}" id="card_${j.id}">
+    <div class="job-head">
+      <div class="job-title">
+        <div style="margin-bottom:5px"><span class="tag cat">${esc(CATS[j.cat].label)}</span><span class="tag res">${j.resume} resume</span>${j.verify?'<span class="tag verify">verify date</span>':""}</div>
+        <h4><a href="${esc(j.url)}" target="_blank" rel="noopener">${esc(j.title)}</a></h4>
+        <div class="org">${esc(j.org)}</div>
+        <div class="meta"><span>posted ~${fmt(j.posted)} (${ageDays(j.posted)}d ago)</span><span>${esc(j.salary||"")}</span></div>
+      </div>
+      <div class="ats ${atsCls}">
+        <div class="ring">${j.ats}</div>
+        <div class="lbl">ATS → ${j.atsBoost} tuned</div>
+      </div>
+      <div class="job-status">
+        <select onchange="setStatus('${j.id}',this.value)">
+          ${STATUSES.map(s=>`<option ${s===st?"selected":""}>${s}</option>`).join("")}
+        </select>
+        <div class="rail">${rail}</div>
+      </div>
+    </div>
+    <button class="toggle" onclick="toggleJob('${j.id}')">${j._open?"▴ Hide":"▾ Show"} fit analysis, resume tuning, cover letter & outreach</button>
+    <div class="job-body">
+      <div class="cols">
+        <div class="blk fav"><h5>Works in your favour</h5><ul>${(j.fav||[]).map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>
+        <div class="blk gap"><h5>Gaps</h5><ul>${(j.gap||[]).map(x=>`<li>${esc(x)}</li>`).join("")}</ul>
+          <h5>Keyword swaps → boosts ATS ${j.ats} → ${j.atsBoost}</h5>
+          <ul>${(j.swaps||[]).map(s=>`<li><span class="kw">${esc(s[0])}</span> → <span class="kw">${esc(s[1])}</span></li>`).join("")}
+          ${(j.tweaks||[]).map(t=>`<li>${esc(t)}</li>`).join("")}</ul>
+        </div>
+      </div>
+      <div class="doc-btns">
+        <button class="btn btn-sm" onclick="showDoc('${j.id}','cl')">Cover letter</button>
+        <button class="btn btn-sm" onclick="showDoc('${j.id}','tune')">Resume tuning sheet</button>
+        <button class="btn btn-sm alt" onclick="aiTailor('${j.id}')">✦ AI: full tailored resume + letter</button>
+        <a class="btn btn-sm alt" style="text-decoration:none" href="${liSearch(j.org)}" target="_blank" rel="noopener">Find hiring team on LinkedIn</a>
+        <button class="btn btn-sm alt" onclick="showDoc('${j.id}','li')">LinkedIn message</button>
+        <button class="btn btn-sm alt" onclick="editNotes('${j.id}')">Notes${j.notes?" ●":""}</button>
+      </div>
+    </div>
+  </div>`;
+}
+function toggleJob(id){ const j = state.jobs.find(x=>x.id===id); j._open = !j._open; render(); }
+async function setStatus(id,s){
+  const j = state.jobs.find(x=>x.id===id);
+  j.status = s; j.dates = j.dates||{}; j.dates[s] = new Date().toISOString().slice(0,10);
+  logEvent(`${j.title} @ ${j.org} → ${s}`);
+  await saveState(state); renderTabs(); render();
+  toast(s==="Applied"?"Marked applied — now send the LinkedIn outreach message.":"Status updated: "+s);
+}
+
+/* ---------- outreach tab ---------- */
+function renderOutreach(m){
+  const active = state.jobs.filter(j=>["Applied","Screening","Interview"].includes(statusOf(j)));
+  m.innerHTML = `
+  <div class="panel"><h3>How to find the hiring manager (2 minutes per job)</h3>
+    <ul style="padding-left:18px;font-size:13.5px">
+      <li style="margin-bottom:5px">Click <b>Find hiring team on LinkedIn</b> on any job card — it opens a people search for that company's recruiters/hiring managers.</li>
+      <li style="margin-bottom:5px">Refine with the team name from the posting (e.g. "Continuous Improvement", "Digital Design and Delivery", "Product").</li>
+      <li style="margin-bottom:5px">Best targets, in order: the posting's named contact → team manager/director → a recruiter/talent partner → a future peer.</li>
+      <li style="margin-bottom:5px">Government roles: for GoA/CoE, email the HR contact on the posting instead — LinkedIn cold outreach lands worse in the public sector.</li>
+      <li>Send within 24h of applying. One polite follow-up after 5 business days. Stop after that.</li>
+    </ul>
+  </div>
+  ${active.length? `<div class="panel"><h3>Ready-to-send messages for your active applications</h3>
+    ${active.map(j=>`<div style="border:1px solid var(--line);border-radius:8px;padding:14px;margin-bottom:10px">
+      <b style="font-size:13.5px">${esc(j.title)} — ${esc(j.org)}</b>
+      <pre style="white-space:pre-wrap;font-size:13px;background:var(--bg);border-radius:6px;padding:12px;margin-top:8px">${esc(outreachMsg(j))}</pre>
+      <div style="display:flex;gap:8px;margin-top:8px">
+        <button class="btn btn-sm btn-primary" onclick="copyTxt(outreachMsg(state.jobs.find(x=>x.id==='${j.id}')))">Copy</button>
+        <a class="btn btn-sm btn-ghost" style="text-decoration:none;color:var(--slate);border-color:var(--line)" href="${liSearch(j.org)}" target="_blank" rel="noopener">Open LinkedIn search</a>
+      </div>
+    </div>`).join("")}</div>`
+  : `<div class="empty">Mark a job as <b>Applied</b> and its outreach message will appear here.</div>`}`;
+}
+
+/* =====================================================================
+   MODALS & DOCS
+   ===================================================================== */
+function openModal(html){ document.getElementById("modalBox").innerHTML = html; document.getElementById("modalBg").classList.add("show"); }
+function closeModal(){ document.getElementById("modalBg").classList.remove("show"); }
+function copyTxt(t){ navigator.clipboard?.writeText(t).then(()=>toast("Copied")).catch(()=>toast("Select and copy manually")); }
+function dlTxt(name,t){ const a=document.createElement("a"); a.href=URL.createObjectURL(new Blob([t],{type:"text/plain"})); a.download=name; a.click(); }
+
+function showDoc(id,kind){
+  const j = state.jobs.find(x=>x.id===id);
+  let title,sub,body,fname;
+  if(kind==="cl"){ title="Cover letter"; sub=j.title+" — "+j.org; body=coverLetter(j); fname="CoverLetter_"+j.org.replace(/\W+/g,"_")+".txt"; }
+  if(kind==="li"){ title="LinkedIn outreach message"; sub="Send to hiring manager / recruiter within 24h of applying"; body=outreachMsg(j); fname="LinkedIn_"+j.org.replace(/\W+/g,"_")+".txt"; }
+  if(kind==="tune"){ title="Resume tuning sheet"; sub="Apply these edits to your "+j.resume+" resume before submitting";
+    body = "BASE RESUME: "+(j.resume==="PM"?"Nehal_Sharma_Resume_PM.pdf":"Nehal_Sharma_Resume_BA.pdf")+"\nTARGET ATS: "+j.ats+" → "+j.atsBoost+"\n\nEDITS:\n"+resumeTweaks(j).map((t,i)=>(i+1)+". "+t).join("\n");
+    fname="ResumeTuning_"+j.org.replace(/\W+/g,"_")+".txt"; }
+  openModal(`<h3>${esc(title)}</h3><div class="sub">${esc(sub)}</div><pre>${esc(body)}</pre>
+    <div class="m-actions">
+      <button class="btn btn-ghost" style="color:var(--slate);border-color:var(--line)" onclick="closeModal()">Close</button>
+      <button class="btn btn-primary" onclick='dlTxt(${JSON.stringify(fname)},${JSON.stringify(body)})'>Download .txt</button>
+      <button class="btn btn-primary" onclick='copyTxt(${JSON.stringify(body)})'>Copy</button>
+    </div>`);
+}
+function editNotes(id){
+  const j = state.jobs.find(x=>x.id===id);
+  openModal(`<h3>Notes — ${esc(j.org)}</h3><div class="sub">Interview dates, contacts, salary talk, anything.</div>
+    <textarea id="noteTa" rows="8">${esc(j.notes||"")}</textarea>
+    <div class="m-actions"><button class="btn btn-ghost" style="color:var(--slate);border-color:var(--line)" onclick="closeModal()">Cancel</button>
+    <button class="btn btn-primary" onclick="saveNotes('${id}')">Save</button></div>`);
+}
+async function saveNotes(id){ const j=state.jobs.find(x=>x.id===id); j.notes=document.getElementById("noteTa").value; await saveState(state); closeModal(); render(); toast("Notes saved"); }
+
+/* ---------- add job manually ---------- */
+function openAddJob(){
+  openModal(`<h3>Add a job</h3><div class="sub">Paste any posting you find yourself.</div>
+    <label>Title</label><input type="text" id="aj_t">
+    <label>Company / Org</label><input type="text" id="aj_o">
+    <label>URL</label><input type="text" id="aj_u" placeholder="https://…">
+    <label>Category</label><select id="aj_c">${["muni","prov","fed","tech","nontech","us"].map(k=>`<option value="${k}">${CATS[k].label}</option>`).join("")}</select>
+    <label>Posted date</label><input type="date" id="aj_d" value="${new Date().toISOString().slice(0,10)}">
+    <label>Best resume</label><select id="aj_r"><option>BA</option><option>PM</option></select>
+    <div class="m-actions"><button class="btn btn-ghost" style="color:var(--slate);border-color:var(--line)" onclick="closeModal()">Cancel</button>
+    <button class="btn btn-primary" onclick="addJob()">Add</button></div>`);
+}
+async function addJob(){
+  const g = id=>document.getElementById(id).value;
+  if(!g("aj_t")||!g("aj_o")) return toast("Title and company required");
+  state.jobs.push({ id:uid(), cat:g("aj_c"), title:g("aj_t"), org:g("aj_o"), url:g("aj_u")||"#", posted:g("aj_d"),
+    salary:"", resume:g("aj_r"), ats:75, atsBoost:85, fav:["Manually added — run AI tailoring for a real score"], gap:[], swaps:[], tweaks:[], status:"Saved", notes:"", dates:{} });
+  logEvent("Added: "+g("aj_t")+" @ "+g("aj_o"));
+  await saveState(state); closeModal(); activeTab=g("aj_c"); renderTabs(); render(); toast("Job added");
+}
+
+/* ---------- export / import ---------- */
+function exportData(){ dlTxt("job-tracker-backup.json", JSON.stringify(state,null,2)); }
+function importData(){
+  const f = document.getElementById("fileIn"); f.onchange = e=>{
+    const r = new FileReader(); r.onload = async ()=>{ try{ state = JSON.parse(r.result); await saveState(state); renderTabs(); render(); toast("Imported"); }catch(err){ toast("Invalid file"); } };
+    r.readAsText(e.target.files[0]);
+  }; f.click();
+}
+
+/* =====================================================================
+   AI FEATURES — work inside the Claude.ai artifact runtime.
+   On GitHub Pages these show a friendly explanation instead of failing.
+   ===================================================================== */
+async function callClaude(prompt, useSearch){
+  const body = { model:"claude-sonnet-4-6", max_tokens:1000, messages:[{role:"user",content:prompt}] };
+  if(useSearch) body.tools = [{type:"web_search_20250305", name:"web_search"}];
+  const res = await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
+  if(!res.ok) throw new Error("API "+res.status);
+  const data = await res.json();
+  return data.content.filter(i=>i.type==="text").map(i=>i.text).join("\n");
+}
+
+async function fetchLiveJobs(){
+  const btn = document.getElementById("fetchBtn");
+  btn.disabled = true; btn.innerHTML = '<span class="spin"></span>Searching…';
+  try{
+    const catMap = {muni:"municipal government (City of Edmonton, EPS, Edmonton Public/Catholic school boards, U of A)", prov:"Government of Alberta provincial", fed:"Government of Canada federal (Edmonton-eligible)", tech:"private technology companies in Edmonton/Alberta or Canada-remote", nontech:"non-tech companies in Edmonton (energy, retail, transport, finance, insurance)", us:"US companies hiring fully remote from Canada"};
+    const target = activeTab in catMap ? activeTab : "tech";
+    const txt = await callClaude(
+`Search the web for CURRENT job postings (posted within the last 21 days, today is ${TODAY.toDateString()}) matching titles: Product Manager, Technical Product Manager, Product Owner, Business Analyst, IT Business Analyst, or IT/Delivery Manager. Focus on: ${catMap[target]}. Candidate is in Edmonton, Alberta with 12 yrs IT / 9 yrs product+BA at TELUS.
+Return ONLY a JSON array (no markdown, no prose) of up to 6 jobs:
+[{"title":"","org":"","url":"","posted":"YYYY-MM-DD","salary":"","resume":"BA or PM","ats":80,"atsBoost":88,"fav":["2-4 strengths vs this candidate"],"gap":["1-3 gaps"],"swaps":[["phrase on resume","stronger phrase for this posting"]]}]
+Base "resume" on whether the BA profile (requirements, process modelling, UAT, PMO) or PM profile (roadmap, GTM, revenue features, squads) fits better. Only include jobs genuinely reachable at >=85 tuned ATS. Real URLs only.`, true);
+    const clean = txt.replace(/```json|```/g,"").trim();
+    const arr = JSON.parse(clean.slice(clean.indexOf("["), clean.lastIndexOf("]")+1));
+    let added = 0;
+    arr.forEach(x=>{
+      if(!x.title||!x.org) return;
+      if(state.jobs.find(j=>j.title===x.title&&j.org===x.org)) return;
+      state.jobs.push({...x, id:uid(), cat:target in catMap?target:"tech", verify:false, tweaks:[], status:"Saved", notes:"", dates:{}, posted:x.posted||new Date().toISOString().slice(0,10)});
+      added++;
+    });
+    logEvent("AI fetch: "+added+" new "+CATS[target in catMap?target:"tech"].label+" roles");
+    await saveState(state); renderTabs(); render();
+    toast(added? added+" fresh jobs added to "+CATS[target].label : "No new matching jobs found — try another tab");
+  }catch(e){
+    openModal(`<h3>Live fetch needs the Claude runtime</h3>
+    <div class="sub">This button calls Claude with web search to pull postings from the last 21 days.</div>
+    <pre>It works when this portal runs as a Claude.ai artifact.
+
+On GitHub Pages, use these instead (all pre-filtered searches):
+• City of Edmonton Talent Hub — recruitment.edmonton.ca/search-results
+• Gov of Alberta — jobpostings.alberta.ca (search "business analyst", Edmonton)
+• GC Jobs — canada.ca/en/services/jobs (IT-02/IT-03 pools)
+• Indeed — ca.indeed.com: "product manager" / "business analyst" Edmonton, date-posted filter
+• LinkedIn Jobs — filter "Past week", Edmonton + Remote (Canada)
+
+Tip: open this portal in Claude, hit Fetch on each tab, then Export →
+Import the JSON into your GitHub-hosted copy.</pre>
+    <div class="m-actions"><button class="btn btn-primary" onclick="closeModal()">Got it</button></div>`);
+  }finally{ btn.disabled=false; btn.innerHTML="⟳ Fetch fresh jobs (AI)"; }
+}
+
+async function aiTailor(id){
+  const j = state.jobs.find(x=>x.id===id);
+  openModal(`<h3>✦ Generating tailored resume + cover letter</h3><div class="sub">${esc(j.title)} — ${esc(j.org)}</div><pre id="aiOut"><span class="spin" style="border-color:var(--teal);border-top-color:transparent"></span> Working…</pre>
+  <div class="m-actions"><button class="btn btn-ghost" style="color:var(--slate);border-color:var(--line)" onclick="closeModal()">Close</button>
+  <button class="btn btn-primary" id="aiCopy" style="display:none" onclick="copyTxt(document.getElementById('aiOut').textContent)">Copy all</button>
+  <button class="btn btn-primary" id="aiDl" style="display:none" onclick="dlTxt('Tailored_${j.org.replace(/\W+/g,"_")}.txt',document.getElementById('aiOut').textContent)">Download</button></div>`);
+  try{
+    const base = j.resume==="PM"? RESUME_PM : RESUME_BA;
+    const txt = await callClaude(
+`You are an expert resume writer optimizing for ATS. Candidate profile:
+${base}
+
+Target job: ${j.title} at ${j.org} (${CATS[j.cat].label}). Known strengths: ${(j.fav||[]).join("; ")}. Known gaps: ${(j.gap||[]).join("; ")}. Keyword swaps wanted: ${(j.swaps||[]).map(s=>s[0]+" -> "+s[1]).join("; ")}.
+
+Produce, in plain text:
+1. TAILORED RESUME — full one-page resume (summary, core competencies with the swapped keywords, experience bullets re-ordered/re-worded for this role, education, certs). Truthful to the profile only; never invent employers, titles, or metrics.
+2. COVER LETTER — 250-320 words, specific to this org and role, addressing the biggest gap head-on.
+No markdown formatting symbols.`);
+    document.getElementById("aiOut").textContent = txt;
+    document.getElementById("aiCopy").style.display="inline-block";
+    document.getElementById("aiDl").style.display="inline-block";
+  }catch(e){
+    document.getElementById("aiOut").textContent =
+`AI generation runs when this portal is open inside Claude.ai.
+
+Meanwhile, everything you need is already built in offline:
+• "Cover letter" button — a complete, job-specific letter
+• "Resume tuning sheet" — exact keyword edits to hit ATS ${j.atsBoost}
+Apply those edits to ${j.resume==="PM"?"Nehal_Sharma_Resume_PM.pdf":"Nehal_Sharma_Resume_BA.pdf"} and submit.`;
+  }
+}
+
+init();
+</script>
+</body>
+</html>
