@@ -157,7 +157,7 @@ const MAX_AGE_DAYS = 21;
 const STATUSES = ["Saved","Applied","Screening","Interview","Offer","Accepted","Rejected"];
 const CATS = {
   dash:      {label:"Dashboard"},
-  muni:      {label:"Govt · Municipal"},
+  muni:      {label:"Govt · Municipal (Metro)"},
   prov:      {label:"Govt · Provincial"},
   fed:       {label:"Govt · Federal"},
   tech:      {label:"Private · Tech"},
@@ -342,6 +342,206 @@ const SEED = [
   swaps:[["disparate departments with varying levels of complexity","disparate departments and enterprise systems (ERP-adjacent) with varying complexity"]],
   tweaks:["Only worth applying if you can speak to ERP integration touchpoints from TELUS billing/provisioning systems"],
   clPara:"" },
+
+{ id:"j_jobber", cat:"tech", title:"Staff Product Manager — Work Smarter (Scheduling)", org:"Jobber (Edmonton hub city)",
+  url:"https://ca.indeed.com/q-product-manager-product-owner-scrum-master-l-edmonton,-ab-jobs.html", posted:"2026-08-06", verify:true, salary:"$169,200–$228,900", resume:"PM",
+  ats:82, atsBoost:90,
+  fav:["Edmonton is a named hub city — rare senior product role at this comp level locally","Agile/scrum cross-functional leadership through iterative cycles = your exact operating history","Consumer-grade product for SMBs; your funnel/conversion analytics work applies"],
+  gap:["Staff-level bar: expect strategy case interviews beyond feature delivery","B2B SaaS for small business vs. B2C telco platform","No marketplace/scheduling domain"],
+  swaps:[["drive roadmap direction and go-to-market work","own product strategy, roadmap and go-to-market across cross-functional squads"]],
+  tweaks:["Lead with the $1.1M OTT revenue outcome and the Showcase feature (0→1 product-led launch)","Highest-comp role on the board — worth a bespoke application even at 82 base ATS"],
+  clPara:"" },
+
+{ id:"j_catalis", cat:"tech", title:"Product Owner — GovTech Payments Platform", org:"CATALIS (Edmonton)",
+  url:"https://edmonton.ca.expertini.com/job/product-owner-edmonton-catalis-3875-9928132/", posted:"2026-07-28", verify:false, salary:"est. $85–110K", resume:"PM",
+  ats:88, atsBoost:94,
+  fav:["Asks for Jira, Confluence, basic SQL, Agile/Scrum delivery, public-sector client interest — all on your resume verbatim","Compliance-framework awareness (PCI/SOC) parallels your CRTC compliance work","Posting targets 2–4 yrs — your 9 yrs makes you a walk-in at PO level"],
+  gap:["Payments/FinTech domain new (they say deeper expertise built on the job)","Watch for over-qualification pushback — position it as seeking impact, not title"],
+  swaps:[["CRTC regulatory requirements","regulatory & compliance requirements (CRTC; transferable to PCI DSS/SOC contexts)"]],
+  tweaks:["Their words: 'public-sector clients, accessibility, enterprise integrations' — echo all three in the letter"],
+  clPara:"" },
+
+{ id:"j_epcor_ba", cat:"nontech", title:"Business Analyst — Information Services", org:"EPCOR (Edmonton)",
+  url:"https://ca.indeed.com/q-epcor-l-edmonton,-ab-jobs.html", posted:"2026-08-03", verify:true, salary:"est. $85–105K", resume:"BA",
+  ats:89, atsBoost:95,
+  fav:["'Range of complex application initiatives within an enterprise-level organization' — your TELUS profile exactly","Municipally-owned utility = public-sector-adjacent stability you're targeting","IS team BA = liaison role, your 12-year specialty"],
+  gap:["Utility domain new (minor — enterprise IT practices identical)"],
+  swaps:[["Optik TV and OPUS TV platforms","enterprise consumer platforms (Optik TV / OPUS TV)"]],
+  tweaks:["Strongest new match found — apply this week"],
+  clPara:"" },
+
+{ id:"j_epcor_sr", cat:"nontech", title:"Senior Analyst, Business (embedded BA — requirements lead)", org:"EPCOR (Edmonton)",
+  url:"https://ca.indeed.com/q-epcor-l-edmonton,-ab-jobs.html", posted:"2026-08-03", verify:true, salary:"est. $95–115K", resume:"BA",
+  ats:87, atsBoost:93,
+  fav:["'Lead requirements gathering activities for complex business and technology initiatives' — your headline skill","Embedded-in-business model matches your IT–Business liaison positioning"],
+  gap:["May prefer utility/regulatory reporting exposure"],
+  swaps:[["requirements gathering & elicitation","leading requirements gathering for complex business & technology initiatives"]],
+  tweaks:[],
+  clPara:"" },
+
+{ id:"j_encor_dpl", cat:"nontech", title:"Digital Product & Customer Experience Lead", org:"Encor by EPCOR (Edmonton)",
+  url:"https://ca.indeed.com/q-epcor-l-edmonton,-ab-jobs.html", posted:"2026-08-05", verify:true, salary:"est. $100–125K", resume:"PM",
+  ats:86, atsBoost:93,
+  fav:["Consumer energy retail digital product = same shape as consumer TV self-care (funnels, self-serve, churn)","'Center of how we shape and deliver the future' — roadmap ownership language","Lead title, Edmonton, permanent"],
+  gap:["Energy retail domain new","CX-lead framing wants journey-mapping evidence — pull from your discovery bullets"],
+  swaps:[["self-care flow","digital self-serve customer experience"],["call-centre churn costs dropped almost $500K","reduced cost-to-serve ~$500K by moving journeys to digital self-serve"]],
+  tweaks:["Best PM-resume fit in Non-Tech — apply alongside the two EPCOR BA roles (different teams, no conflict)"],
+  clPara:"" },
+
+{ id:"j_goa_scrum", cat:"prov", title:"Scrum Master / Agile roles — GoA DDD digital initiatives (contract)", org:"Government of Alberta via vendors (Cloudtrend, Recutify, Omega, Upstaff)",
+  url:"https://www.workopolis.com/search?l=edmonton%2C+alberta&q=scrum", posted:"2026-08-05", verify:true, salary:"contract $48–84/hr", resume:"PM",
+  ats:81, atsBoost:89,
+  fav:["GoA Product Owners + DDD teams, full product lifecycle: discovery, backlog, iterative delivery — your PO history fits","You facilitated planning, standups, estimation, retros for years","SAFe 5 Practitioner is the exact asset these reqs list"],
+  gap:["Scrum Master ≠ PO — emphasize facilitation over ownership for these","Contract via staffing vendors: apply through Cloudtrend/Recutify/Upstaff portals"],
+  swaps:[["Facilitated sprint planning, standups, and estimation","Planned and facilitated all agile ceremonies: planning, stand-ups, reviews, demos, retrospectives, refinement"]],
+  tweaks:["These vendor shops (Cloudtrend, Recutify, Attain, Omega) hold standing GoA contracts — send them your resume once and they pitch you to multiple reqs"],
+  clPara:"" },
+
+{ id:"j_cloudtrend", cat:"prov", title:"Business Analyst / Technical BA (GoA contracts, multiple reqs)", org:"Cloudtrend Inc. (Edmonton — GoA vendor)",
+  url:"https://ca.indeed.com/q-business-analyst-l-edmonton,-ab-jobs.html", posted:"2026-08-07", verify:true, salary:"contract, est. $60–90/hr", resume:"BA",
+  ats:85, atsBoost:92,
+  fav:["'Interviewing business clients, assessing and analyzing business needs' — checklist match to BA resume","Multiple concurrent BA reqs = one application, several chances","Knowledge-management/documentation governance req suits your SOP/Confluence depth"],
+  gap:["Contract work — no benefits; rate negotiation on you"],
+  swaps:[["Maintained Confluence-based release readiness documentation","Implemented and governed knowledge-management documentation (Confluence)"]],
+  tweaks:[],
+  clPara:"" },
+
+{ id:"j_attain", cat:"nontech", title:"Business Systems Analyst (ERP)", org:"Attain Solutions (Edmonton)",
+  url:"https://ca.indeed.com/Business-Analyst-jobs-in-Edmonton,-AB", posted:"2026-08-04", verify:true, salary:"est. $85–105K", resume:"BA",
+  ats:79, atsBoost:87,
+  fav:["'Break down business problems into logical tasks' + back-end process knowledge — your systems-thinking pitch","BSA titles screen well against 12 yrs liaison experience"],
+  gap:["ERP-specific (likely SAP/Dynamics) — prep billing/provisioning integration talking points"],
+  swaps:[["disparate departments","disparate departments and enterprise (ERP-adjacent) systems"]],
+  tweaks:[],
+  clPara:"" },
+
+{ id:"j_finning", cat:"nontech", title:"Product / Program roles (multiple)", org:"Finning International (Edmonton)",
+  url:"https://www.workopolis.com/search?q=product+manager&l=edmonton,+alberta", posted:"2026-08-02", verify:true, salary:"est. $90–120K + RRSP/TFSA", resume:"PM",
+  ats:80, atsBoost:88,
+  fav:["'Agile project delivery... communicate program outcomes and strategic alignment to executives' — your biweekly leadership reporting","Large stable Edmonton employer, multiple concurrent openings"],
+  gap:["Heavy-equipment/dealer domain new","Some roles blend product marketing — check each req"],
+  swaps:[["Report on roadmap status, risk, and trade-offs to leadership","Communicate program outcomes, risk and strategic alignment to executive leadership"]],
+  tweaks:[],
+  clPara:"" },
+
+{ id:"j_samsara_btpm", cat:"us", title:"Business Technology Product Manager (Remote — Canada)", org:"Samsara (US, IoT operations platform)",
+  url:"https://www.samsara.com/company/careers/roles/7593250?gh_jid=7593250", posted:"2026-08-04", verify:true, salary:"est. $130–165K CAD", resume:"PM",
+  ats:84, atsBoost:91,
+  fav:["Explicit Remote-Canada posting at a US public tech company — exactly this tab's mandate","Business Technology PM = internal-platform product work: your liaison-between-business-and-IT profile is the job description","Enterprise stakeholder alignment + data-backed prioritization = your Splunk/SQL decision habit"],
+  gap:["Internal-tools domain (ERP/CRM/integrations) vs consumer product — reframe billing/provisioning integration exposure","US-company interview loop: expect metrics-heavy behavioural rounds"],
+  swaps:[["liaison between business units and IT","Business Technology product owner bridging business units and IT platforms"],["160+ stakeholder connections and downstream systems","enterprise system integrations across 160+ stakeholder touchpoints and downstream systems"]],
+  tweaks:["Apply on Samsara's own careers page; their Greenhouse ATS parses standard headers cleanly"],
+  clPara:"" },
+
+{ id:"j_gitlab_pa", cat:"us", title:"Product Analyst (Remote — Canada)", org:"GitLab (US, all-remote DevOps platform)",
+  url:"https://builtintoronto.com/job/product-analyst/7425926", posted:"2026-08-05", verify:true, salary:"est. $100–130K CAD", resume:"BA",
+  ats:77, atsBoost:86,
+  fav:["All-remote company — no hybrid ambiguity, hires across Canada","Product analytics (funnels, SQL, decision support) matches your Adobe Analytics/Splunk/SQL work","Your Jira/Confluence depth translates directly to their handbook-driven async culture"],
+  gap:["Heavier stats/experimentation (A/B) expectation than your resume shows","DevOps product domain new — but you know Git/GitHub and API tooling"],
+  swaps:[["evidence-based decision support","product analytics: funnel analysis, cohort tracking & experiment readouts for decision support"]],
+  tweaks:["Pull the PM resume's data bullets into the BA resume for this one — the hybrid again scores highest"],
+  clPara:"" },
+
+{ id:"j_jobber_gltpm", cat:"us", title:"Group Lead, Technical Product Management — Systems (Remote Canada/US)", org:"Jobber (Greenhouse board — flagged New)",
+  url:"https://job-boards.greenhouse.io/jobber/jobs/7900058002", posted:"2026-08-08", verify:true, salary:"est. $160–210K CAD", resume:"PM",
+  ats:80, atsBoost:89,
+  fav:["Listed 'Remote in Canada/US' and marked New on their board — fresh and location-flexible","Group Lead over systems/platform TPMs: your platform re-engineering + PO mentoring story is the pitch","Second Jobber role on the board — one networking effort, two applications"],
+  gap:["People-leadership title (same objection as Keolis — use the same head-on answer)","Internal-systems TPM vs consumer PM framing"],
+  swaps:[["Mentor a couple of Product Owners and analysts","Functionally lead and mentor Product Owners/TPMs across platform squads"]],
+  tweaks:["If you land conversations for both Jobber roles, tell each recruiter — internally coordinated candidacies read as strong interest, not spam"],
+  clPara:"" },
+
+/* ---------- EDMONTON METRO RING MUNICIPALITIES ---------- */
+{ id:"j_stalbert_itba", cat:"muni", title:"IT Business Analyst (J0726-0430) — CONFIRMED LIVE", org:"City of St. Albert",
+  url:"https://careers.stalbert.ca/", posted:"2026-07-26", verify:false, salary:"est. $85–105K + LAPP pension", resume:"BA",
+  ats:91, atsBoost:96,
+  fav:["Exact title match: 'IT Business Analyst' — your BA resume's headline, zero translation needed","Municipal IT BA = your Wood Buffalo municipal deployment + 12 yrs liaison experience, the strongest possible combination","Confirmed live: local press listed it among St. Albert's current openings within the past week","20-min commute from Edmonton; LAPP defined-benefit pension"],
+  gap:["Small-city IT shop = broad generalist scope (apps + a bit of infra) — your CCNP/CCNA actually helps here, surface them"],
+  swaps:[["IT–Business Liaison | Requirements & Stakeholder Management","IT Business Analyst | Requirements, Process Modelling & Stakeholder Management"]],
+  tweaks:["Highest-fit posting in the entire tracker — apply first, today","Search 'Business Analyst' on careers.stalbert.ca to reach req J0726-0430 directly (their portal links expire)","Municipal panels ask scenario questions: prep the Wood Buffalo story in STAR format"],
+  clPara:"Municipal IT is where I started delivering: I served as primary IT liaison for the Regional Municipality of Wood Buffalo's full infrastructure deployment, coordinating across departments under time-sensitive conditions. Twelve years later, with a decade of enterprise business analysis at TELUS layered on top, an IT Business Analyst role serving a community is exactly the work I want to return to." },
+
+{ id:"j_strathcona", cat:"muni", title:"IT / Business Analyst openings (12 open positions, rolling)", org:"Strathcona County (Sherwood Park)",
+  url:"https://www.strathcona.ca/council-county/careers/", posted:"2026-08-09", verify:true, salary:"varies + full county benefits", resume:"BA",
+  ats:80, atsBoost:88,
+  fav:["Forbes Best Employers 2024 list; 2,000+ staff serving 100K residents — big enough for real IT/BA roles","IT support analyst and policy analyst roles have appeared repeatedly; business-analysis reqs cycle through","Sherwood Park is inside Strathcona County — one portal covers both"],
+  gap:["No analyst req confirmed open this exact week — set their job alert and check twice weekly"],
+  swaps:[["municipal and public-sector clients","municipal county and public-sector clients"]],
+  tweaks:["Their postings emphasize 'process improvement' and 'best practices' — both already on your resume verbatim"],
+  clPara:"" },
+
+{ id:"j_metro_ring", cat:"muni", title:"Metro-ring municipal watchlist — Beaumont · Leduc · Fort Sask · Spruce Grove · Stony Plain · Parkland · Sturgeon", org:"Edmonton Metropolitan Region municipalities",
+  url:"https://dailyhive.com/edmonton/cities-near-edmonton-hiring-august", posted:"2026-08-05", verify:false, salary:"varies + LAPP pension", resume:"BA",
+  ats:78, atsBoost:87,
+  fav:["Ring municipalities post BA/IT/coordinator roles in small batches that big boards often miss — direct portals are the only reliable source","Fort Saskatchewan is hiring across multiple roles right now; Leduc typically runs ~5 concurrent openings","Small-municipality panels weight your municipal deployment experience far more heavily than corporate ATS does"],
+  gap:["Each city posts only a handful of roles at a time — this is an alert-setting play, not a today-application","Some roles blend BA with coordinator/admin duties — read scope before applying"],
+  swaps:[],
+  tweaks:["Set job alerts once on each portal: beaumont.ca/careers · leduc.ca/careers · fortsask.ca/careers · sprucegrove.org/careers · stonyplain.com/careers · parklandcounty.com/careers · sturgeoncounty.ca/careers","When an analyst/coordinator req appears, use the St. Albert cover letter with the municipality swapped — same Wood Buffalo hook works everywhere"],
+  clPara:"" },
+
+/* ---------- CROSS-TITLE MATCHES (skills-based scan, Aug 12 2026) ---------- */
+{ id:"j_goa_projanalyst", cat:"prov", xt:true, title:"Project Analyst — Infrastructure (JR85983) · CLOSES AUG 21", org:"Government of Alberta — Alberta Infrastructure",
+  url:"https://jobpostings.alberta.ca/job/Edmonton-Project-Analyst/605040017/", posted:"2026-08-07", verify:false, salary:"$82,168–$107,710 (PS4, 10-mo temp)", resume:"BA",
+  ats:56, atsBoost:85,
+  fav:["Confirmed open with a real closing date — the most actionable posting on the board","Duties = reviewing business cases & project submissions, capturing lessons learned, recommending continuous improvements to governance processes — you do all three, under different names","PS4 seniority bar cleared easily; temp roles convert and build APS status"],
+  gap:["Procurement documents (SOWs, RFEOIs) not on resume — nearest analogue is vendor coordination & requirements packages","Capital-projects/finance flavour; no construction domain"],
+  swaps:[["PMO governance (GO/NoGO)","project governance & gated approval processes (GO/NoGO)"],["Researched and evaluated technical solutions in the marketplace","Developed evaluation criteria and options analyses for vendor and solution selection (procurement-adjacent)"],["executive reporting","business case review, risk assessment & executive reporting"],["Continuous improvement","Lessons-learned capture & continuous improvement of governance processes"]],
+  tweaks:["Their ATS keys: 'business case', 'governance', 'stakeholder', 'procurement', 'continuous improvement' — the swaps put 4 of 5 on page one","Apply before Aug 21; GoA screens on the written qualifications answers as much as the resume"],
+  clPara:"" },
+
+{ id:"j_fuze_change", cat:"nontech", xt:true, title:"Change Management Analyst (contract to Mar 2027)", org:"via Fuze HR Solutions (Edmonton)",
+  url:"https://www.ziprecruiter.com/c/Fuze-HR-Solutions/Job/Change-Management-Analyst/-in-Edmonton,AB?jid=16d88b48b82b9e28", posted:"2026-08-01", verify:true, salary:"contract, est. $55–75/hr", resume:"BA",
+  ats:60, atsBoost:86,
+  fav:["Req asks for PROSCI — your Prosci ADKAR line is the screening keyword","'Change strategies across multiple system releases... track adoption... post-release feedback... lessons learned' — this is your release governance + training/adoption work renamed","They openly say they use ATS screening — exactly the keyword-tuning game this tracker plays"],
+  gap:["Change management is a supporting thread on your resume, not the headline — restructure so it leads","No formal Prosci certification (awareness only) — say so plainly, offer to certify"],
+  swaps:[["Prosci ADKAR methodology awareness","Change management practitioner — Prosci ADKAR methodology (certification in progress)"],["training materials","stakeholder communications, training materials & adoption programs"],["Reduced regression testing cycle time by 70%","Drove adoption of redesigned processes across teams, sustained through post-release feedback loops"]],
+  tweaks:["Move 'Led Waterfall-to-Agile transformation' to bullet #1 — organizational change delivery is the whole job"],
+  clPara:"" },
+
+{ id:"j_pcl_sysanalyst", cat:"nontech", xt:true, title:"Systems Analyst — NAHQ (go-live & implementation support)", org:"PCL Construction (Edmonton HQ)",
+  url:"https://careers.pcl.com/job/Edmonton-Systems-Analyst-AB/1346139500/", posted:"2026-08-04", verify:true, salary:"est. $80–100K", resume:"BA",
+  ats:58, atsBoost:83,
+  fav:["'Go-live planning, post-implementation support, refine workflows, optimize system use, status reports, risk/issue logs' — your release + deployment history in systems-analyst clothing","Asks 3–5 yrs of business analysis — you triple it","Employee-owned, Edmonton headquarters, very stable"],
+  gap:["Primavera P6 administration is the core tool — genuine gap; position Jira/ADO admin depth + fast tool adoption","Construction scheduling domain new"],
+  swaps:[["release planning","go-live planning & post-implementation support"],["defect triage, and validation","issue triage, workflow refinement, and system optimization"]],
+  tweaks:["Cover letter: name the pattern — you've owned enterprise platform administration (Jira/Confluence/ADO) and learned domain tools fast (cite Wood Buffalo + Shell rollouts)"],
+  clPara:"" },
+
+{ id:"j_uofa_functional", cat:"muni", xt:true, title:"Functional Analyst — EPM Systems", org:"University of Alberta (Edmonton)",
+  url:"https://ca.indeed.com/q-government-of-alberta-systems-analyst-l-edmonton,-ab-jobs.html", posted:"2026-08-05", verify:true, salary:"est. $75–95K + pension", resume:"BA",
+  ats:62, atsBoost:87,
+  fav:["'Maintain system documentation, training materials, process guides; provide a system's view of operational policy' — your SOP/HLD/LLD + SME work renamed 'functional analyst'","'System thinking skills' is literally in the posting and literally on your resume","Public-sector employer, U of A alum advantage (M.Sc. Internetworking)"],
+  gap:["EPM (budget/planning) system specifics new","University governance context"],
+  swaps:[["produced HLD/LLD documents, SOPs, and training materials","developed and maintained system documentation, SOPs, administration guides, and training materials"],["end-to-end ownership of OTT platform domain knowledge","end-to-end functional ownership: subject-matter expertise, system's view of operations, data flows and dependencies"]],
+  tweaks:["Mention your alum status in line 1 of the cover letter"],
+  clPara:"" },
+
+{ id:"j_telus_release", cat:"tech", xt:true, title:"Program / Release Manager (internal posting — SAFe, ITIL, change mgmt)", org:"TELUS (internal mobility)",
+  url:"https://www.glassdoor.ca/Job/canada-release-manager-jobs-SRCH_IL.0,6_IN3_KO7,22.htm", posted:"2026-08-06", verify:true, salary:"internal band", resume:"PM",
+  ats:90, atsBoost:96,
+  fav:["A current TELUS posting listing SAFe, change management, ITIL, ServiceNow — three of the four are your certifications/skills","'High-visibility role... program management discipline... positions you for senior leadership' — the internal promotion path while you search externally","Internal candidates skip external ATS entirely; 9 yrs tenure + release governance record is the application"],
+  gap:["ServiceNow not on resume — one-week familiarization closes it","Check Go/HR portal for the actual req; external boards mirror internal posts late"],
+  swaps:[["Own release governance","Own end-to-end release management: readiness reviews, QA/UAT completion, sign-off, and post-implementation audits"]],
+  tweaks:["Search TELUS internal careers for 'release manager', 'program manager', 'delivery manager' this week — don't apply through Glassdoor"],
+  clPara:"" },
+
+{ id:"j_fidelity_release", cat:"us", xt:true, title:"Release Manager (QA/UAT governance)", org:"Fidelity Investments (Canada, hybrid/remote)",
+  url:"https://www.glassdoor.ca/Job/canada-release-manager-jobs-SRCH_IL.0,6_IN3_KO7,22.htm", posted:"2026-08-03", verify:true, salary:"est. $95–120K", resume:"BA",
+  ats:64, atsBoost:87,
+  fav:["Posting duties: schedule testing resources, identify environment setup, ensure QA and UAT completion, obtain sign-off — a four-line description of your testing section","Incident management + release management keywords: covered by S1/S2 defect governance + ITIL v3"],
+  gap:["Financial-services compliance context new (your CRTC work is the bridge)","Confirm Alberta-remote eligibility — many Fidelity roles are ON-based"],
+  swaps:[["Developed and executed test plans across SIT, Pre-prod, UAT, and EMT environments","Managed release readiness end-to-end: test resource scheduling, environment setup, QA/UAT completion, and stakeholder sign-off"],["S1/S2 defect resolution","incident and defect management (S1/S2) through resolution and post-release audit"]],
+  tweaks:[],
+  clPara:"" },
+
+{ id:"j_gc_inventory", cat:"fed", xt:true, title:"GC Jobs inventories — AS/EC/IT streams (apply to pools, not titles)", org:"Government of Canada — multiple departments",
+  url:"https://emploisfp-psjobs.cfp-psc.gc.ca/psrs-srfp/applicant/page2440?fromMenu=true&toggleLanguage=en", posted:"2026-08-10", verify:false, salary:"AS-04/05, EC-04/05, IT-02/03 bands", resume:"BA",
+  ats:55, atsBoost:84,
+  fav:["Federal hiring runs on inventories with Jul–Aug 2026 closings, and managers pull from pools before postings close — applying early to inventories beats chasing titles","Your skills map to three streams at once: IT (BA/analysis), AS (program/project administration), EC (analysis/advisory)","Screening is answer-based: '12 years eliciting requirements at TELUS, including…' beats any keyword"],
+  gap:["GC Jobs strips resume formatting — keep an unformatted plain-text version ready","No auto-save on GC Jobs: draft answers in a doc first","Some streams need bilingual or clearance — filter 'English essential'"],
+  swaps:[["IT–Business Liaison","Business Analyst / IT Analyst / Program Analyst (federal stream-agnostic framing)"]],
+  tweaks:["Search the portal for open *inventories* mentioning: business analysis, IT analyst, program analyst, project officer — apply to every English-essential one; each feeds dozens of hires"],
+  clPara:"" },
 ];
 
 /* =====================================================================
@@ -376,6 +576,7 @@ async function init(){
   else { state.jobs = SEED.map(j=>({...j, status:"Saved", notes:"", dates:{}})); logEvent("Tracker initialized with "+state.jobs.length+" researched roles"); await saveState(state); }
   // merge any new seed jobs added in later versions
   SEED.forEach(s=>{ if(!state.jobs.find(j=>j.id===s.id)) state.jobs.push({...s,status:"Saved",notes:"",dates:{}}); });
+  state.jobs = state.jobs.filter(j=>j.id!=="j_li_alert"); // retired placeholder card
   renderTabs(); render();
   autoRefresh();
 }
@@ -484,7 +685,7 @@ function jobCard(j){
   <div class="job ${j._open?"open":""}" id="card_${j.id}">
     <div class="job-head">
       <div class="job-title">
-        <div style="margin-bottom:5px"><span class="tag cat">${esc(CATS[j.cat].label)}</span><span class="tag res">${j.resume} resume</span>${j.verify?'<span class="tag verify">verify date</span>':""}</div>
+        <div style="margin-bottom:5px"><span class="tag cat">${esc(CATS[j.cat].label)}</span><span class="tag res">${j.resume} resume</span>${j.xt?'<span class="tag" style="background:#E7E3F5;color:#5B4B9E">cross-title</span>':""}${j.verify?'<span class="tag verify">verify date</span>':""}</div>
         <h4><a href="${esc(j.url)}" target="_blank" rel="noopener">${esc(j.title)}</a></h4>
         <div class="org">${esc(j.org)}</div>
         <div class="meta"><span>posted ~${fmt(j.posted)} (${ageDays(j.posted)}d ago)</span><span>${esc(j.salary||"")}</span></div>
@@ -540,6 +741,7 @@ function renderOutreach(m){
       <li style="margin-bottom:5px">Refine with the team name from the posting (e.g. "Continuous Improvement", "Digital Design and Delivery", "Product").</li>
       <li style="margin-bottom:5px">Best targets, in order: the posting's named contact → team manager/director → a recruiter/talent partner → a future peer.</li>
       <li style="margin-bottom:5px">Government roles: for GoA/CoE, email the HR contact on the posting instead — LinkedIn cold outreach lands worse in the public sector.</li>
+      <li style="margin-bottom:5px">LinkedIn has no Claude connector, so cover it with alerts: save searches for Business Analyst / Product Manager / Product Owner (Edmonton) and Product Manager (Remote, Canada), filter Date posted = Past week, and add anything good here via <b>+ Add job</b>.</li>
       <li>Send within 24h of applying. One polite follow-up after 5 business days. Stop after that.</li>
     </ul>
   </div>
@@ -632,19 +834,24 @@ async function callClaude(prompt, useSearch, useIndeed){
 }
 
 const CATMAP = {
-  muni:"municipal government employers in Edmonton (City of Edmonton, Edmonton Police Service, school boards, University of Alberta, NAIT)",
+  muni:"municipal government employers across the Edmonton Metropolitan Region: City of Edmonton, Edmonton Police Service, school boards, University of Alberta, NAIT, City of St. Albert, Strathcona County (Sherwood Park), City of Beaumont, City of Leduc, City of Fort Saskatchewan, City of Spruce Grove, Town of Stony Plain, Parkland County, Sturgeon County, Leduc County",
   prov:"Government of Alberta provincial ministries and agencies, Edmonton-based",
   fed:"Government of Canada federal departments with Edmonton-eligible or Canada-remote positions",
   tech:"private technology / software companies in Edmonton, Alberta, or Canada-remote",
   nontech:"non-tech companies in Edmonton (energy, utilities, transport, retail, finance, insurance, healthcare)",
   us:"US-headquartered companies hiring fully remote employees located in Canada"
 };
-function jobPrompt(target){
-  return `Today is ${TODAY.toDateString()}. Use the Indeed search_jobs tool (query variations: "business analyst", "product manager", "technical product manager", "product owner", "IT business analyst"; location "Edmonton, AB" or "Remote" as fits) AND web search to find job postings posted within the last 21 days for: ${CATMAP[target]}.
+const TITLE_SETS = [
+  '"business analyst", "IT business analyst", "business systems analyst", "senior business analyst"',
+  '"product manager", "technical product manager", "product owner", "delivery manager", "IT manager"',
+  '"systems analyst", "functional analyst", "change management analyst", "release manager", "project analyst", "implementation specialist", "process improvement" — CROSS-TITLE pass: match on skills/duties (requirements elicitation, process modelling, UAT, release governance, SOPs, Prosci change mgmt, ITIL, stakeholder facilitation) at >=50% base fit, tunable to >=80% via keyword reframing; set "ats" to the honest base fit and "atsBoost" to the tuned score, and put the reframing phrases in "swaps"'
+];
+function jobPrompt(target, titles){
+  return `Today is ${TODAY.toDateString()}. Use the Indeed search_jobs tool (queries: ${titles}; location "Edmonton, AB" or "Remote" as fits) AND web search to find job postings posted within the last 21 days for: ${CATMAP[target]}.
 Candidate: Edmonton AB, 12 yrs IT / 9 yrs product+BA at TELUS (requirements, process modelling, UAT, PMO governance / roadmap, GTM, revenue features, 4 Agile squads).
 Return ONLY a JSON array (no markdown, no prose, nothing before "[" or after "]") of up to 6 jobs:
 [{"title":"","org":"","url":"","posted":"YYYY-MM-DD","salary":"","resume":"BA or PM","ats":80,"atsBoost":88,"fav":["2-4 strengths vs this candidate"],"gap":["1-3 gaps"],"swaps":[["phrase on candidate resume","stronger phrase for this posting"]]}]
-Use real posting URLs and real posted dates from the tool results. Only include jobs genuinely reachable at >=85 tuned ATS. Exclude anything older than 21 days.`;
+Use real posting URLs and real posted dates from the tool results. Only include jobs genuinely reachable at >=85 tuned ATS. Exclude anything older than 21 days. If the Indeed tool returns a rate-limit error, rely on web search alone.`;
 }
 function mergeJobs(arr,target){
   let added = 0;
@@ -661,9 +868,15 @@ function parseJobsJSON(txt){
   return JSON.parse(clean.slice(clean.indexOf("["), clean.lastIndexOf("]")+1));
 }
 async function fetchCategory(target){
-  const txt = await callClaude(jobPrompt(target), true, true);
-  const added = mergeJobs(parseJobsJSON(txt), target);
-  logEvent("Auto-fetch (Indeed+web): "+added+" new "+CATS[target].label+" roles");
+  let added = 0;
+  for(const titles of TITLE_SETS){
+    try{
+      const txt = await callClaude(jobPrompt(target, titles), true, true);
+      added += mergeJobs(parseJobsJSON(txt), target);
+    }catch(e){ /* one pass failing shouldn't kill the category */ }
+    await new Promise(r=>setTimeout(r, 4000)); // pace calls for Indeed MCP rate limit
+  }
+  logEvent("Auto-fetch (Indeed+web, 2 passes): "+added+" new "+CATS[target].label+" roles");
   return added;
 }
 async function fetchLiveJobs(all){
